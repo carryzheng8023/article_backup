@@ -46,6 +46,8 @@ tblproperties('transactional'='true');
 insert into tm values(1,'aa');
 update tm set name = 'bb' where id = 1;
 delete from tm where id = 1;
+
+ALTER TABLE tm COMPACT 'minor'; -- 压缩delta
 ```
 
 
@@ -180,5 +182,48 @@ engine=InnoDB;
 [main]: lockmgr.DbLockManager (DbLockManager.java:lock(85)) - Response to queryId=hadoop_20190813061155_57cfa30c-b1f5-4f47-89d7-87f8f8615aa9 LockResponse(lockid:8, state:WAITING)
 
 Caused by: MetaException(message:Unable to select from transaction database com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry '1' for key 'PRIMARY'
+```
+
+
+
+```
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. MetaException(message:Unable to select from transaction database com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'hive_metadata.NEXT_COMPACTION_QUEUE_ID' doesn't exist
+```
+
+```sql
+create table NEXT_COMPACTION_QUEUE_ID
+(
+  NCQ_NEXT bigint not null
+)
+engine=InnoDB;
+insert into NEXT_COMPACTION_QUEUE_ID values(1);
+```
+
+
+
+```
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. MetaException(message:Unable to select from transaction database com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'hive_metadata.COMPACTION_QUEUE' doesn't exist
+```
+
+```sql
+create table COMPACTION_QUEUE
+(
+  CQ_ID bigint not null
+    primary key,
+  CQ_DATABASE varchar(128) not null,
+  CQ_TABLE varchar(128) not null,
+  CQ_PARTITION varchar(767) null,
+  CQ_STATE char not null,
+  CQ_TYPE char not null,
+  CQ_TBLPROPERTIES varchar(2048) null,
+  CQ_WORKER_ID varchar(128) null,
+  CQ_START bigint null,
+  CQ_RUN_AS varchar(128) null,
+  CQ_HIGHEST_TXN_ID bigint null,
+  CQ_META_INFO varbinary(2048) null,
+  CQ_HADOOP_JOB_ID varchar(32) null
+)
+engine=InnoDB
+;
 ```
 
