@@ -48,6 +48,7 @@ update tm set name = 'bb' where id = 1;
 delete from tm where id = 1;
 
 ALTER TABLE tm COMPACT 'minor'; -- 压缩delta
+ALTER TABLE tm COMPACT 'major'; -- 合并base
 ```
 
 
@@ -176,15 +177,6 @@ create table COMPLETED_TXN_COMPONENTS
 engine=InnoDB;
 ```
 
-**注：**如果你是报一次错才创建一个表，请在所有表创建完后将表中的数据清空，否则会卡死并得到以下错误
-
-```
-[main]: lockmgr.DbLockManager (DbLockManager.java:lock(85)) - Response to queryId=hadoop_20190813061155_57cfa30c-b1f5-4f47-89d7-87f8f8615aa9 LockResponse(lockid:8, state:WAITING)
-
-Caused by: MetaException(message:Unable to select from transaction database com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry '1' for key 'PRIMARY'
-```
-
-
 
 ```
 FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. MetaException(message:Unable to select from transaction database com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'hive_metadata.NEXT_COMPACTION_QUEUE_ID' doesn't exist
@@ -227,3 +219,10 @@ engine=InnoDB
 ;
 ```
 
+**注：**如果你是报一次错才创建一个表，请在所有表创建完后将表中的数据清空，否则会卡死并得到以下错误
+
+```
+[main]: lockmgr.DbLockManager (DbLockManager.java:lock(85)) - Response to queryId=hadoop_20190813061155_57cfa30c-b1f5-4f47-89d7-87f8f8615aa9 LockResponse(lockid:8, state:WAITING)
+
+Caused by: MetaException(message:Unable to select from transaction database com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry '1' for key 'PRIMARY'
+```
