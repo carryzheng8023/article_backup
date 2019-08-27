@@ -74,5 +74,6 @@
 
     ![](http://pic.carryzheng.xin/zx_md/20190823161334.png)
 
-[reference](https://cwiki.apache.org/confluence/display/Hive/Hive+Transactions#HiveTransactions-SHOWCOMPACTIONS)
+[reference1](https://issues.apache.org/jira/browse/SPARK-15348)
+[reference2](https://cwiki.apache.org/confluence/display/Hive/Hive+Transactions)
 
