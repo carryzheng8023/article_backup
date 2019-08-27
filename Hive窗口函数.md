@@ -5,30 +5,47 @@
 #### 2、聚合函数
 
 > count(column_name)：返回指定列的值的数目
+> 
 > sum(column_name)：返回数值列的总数
+> 
 > min(column_name)：返回一列中的最小值，null值不包括在计算中
+> 
 > max(column_name)：返回一列中的最大值，null值不包括在计算中
+> 
 > avg(column_name)：返回数值列的平均值，null值不包括在计算中
 
 #### 3、分析函数
 
 > row_number()：从1开始，按照顺序，生成分组内记录的序列
+> 
 > rank()：生成数据项在分组中的排名，排名相等会在名次中留下空位
+> 
 > dense_rank()：生成数据项在分组中的排名，排名相等会在名次中不会留下空位
+> 
 > lag(col,n)：向前第n行数据
+> 
 > lead(col,n)：向后第n行数据
+> 
 > first_value(col)：第一行数据
+> 
 > last_value(col)：最后一行数据
+> 
 > ntile(n)：把有序分区中的行分发到指定数据的组中，各个组有编号，编号从1开始，对于每一行，ntile返回此行所属组的编号。
 
 #### 4、over()从句：用来添加条件
 
 > distribute by：用于分区
+> 
 > sort by：用于排序
-> between row_a and row_b*：窗口取值范围
+> 
+> between row_a and row_b：窗口取值范围
+> 
 > current row：当前行
+> 
 > n preceding：往前n行数据
+> 
 > n following：往后n行数据
+> 
 > unbounded：无界限，unbounded preceding表示从起点开始，unbounded following表示到终点
 
 #### 5、示例
