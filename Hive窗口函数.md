@@ -94,3 +94,6 @@ select * from(select name, orderdate, cost, ntile(5) over(sort by orderdate) gid
 select *,rank() over(partition by name order by cost desc) from business;
    ```
    ![](http://pic.carryzheng.xin/zx_md/20190827121203.png)
+
+[reference](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+WindowingAndAnalytics)
+
